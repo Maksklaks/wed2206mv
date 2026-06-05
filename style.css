@@ -647,6 +647,13 @@
       border-radius: 7px;
       background: rgba(255, 250, 242, .56);
       box-shadow: 0 18px 38px rgba(92, 98, 89, .1);
+      cursor: zoom-in;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .dress-look:focus-visible {
+      outline: 2px solid rgba(104, 109, 103, .42);
+      outline-offset: 5px;
     }
 
     .dress-look img {
@@ -662,9 +669,19 @@
       transform: translateY(16px) rotate(-1.2deg);
     }
 
+    .dress-look:first-child:hover {
+      transform: translateY(10px) rotate(-1.2deg);
+      box-shadow: 0 22px 44px rgba(92, 98, 89, .16);
+    }
+
     .dress-look:last-child {
       height: clamp(300px, 34vw, 430px);
       transform: rotate(1.1deg);
+    }
+
+    .dress-look:last-child:hover {
+      transform: translateY(-6px) rotate(1.1deg);
+      box-shadow: 0 22px 44px rgba(92, 98, 89, .16);
     }
 
     .rsvp {
@@ -695,6 +712,58 @@
       font-size: 12px;
       letter-spacing: .08em;
       text-transform: uppercase;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .image-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      padding: clamp(22px, 4vw, 54px);
+      background: rgba(38, 43, 38, .74);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .24s ease;
+    }
+
+    .image-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-image {
+      display: block;
+      max-width: min(96vw, 1180px);
+      max-height: 86vh;
+      object-fit: contain;
+      border: 10px solid rgba(255, 250, 242, .92);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, .32);
+    }
+
+    .modal-close {
+      position: fixed;
+      top: clamp(16px, 3vw, 30px);
+      right: clamp(16px, 3vw, 34px);
+      z-index: 81;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 250, 242, .72);
+      border-radius: 50%;
+      color: var(--white);
+      background: rgba(77, 81, 77, .46);
+      font-size: 32px;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
     }
 
     footer {

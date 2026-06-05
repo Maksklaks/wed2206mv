@@ -169,20 +169,19 @@
     <section class="dress-rsvp" id="dress">
       <div class="dress">
         <p class="section-kicker">dress code</p>
-        <h2>Мягкая природная палитра</h2>
-        <p class="copy">Будем рады оттенкам шалфея, оливы, молочного, пыльной розы, светлого камня и тёплого бежевого.</p>
+        <h2>Пастельная палитра дня</h2>
+        <p class="copy">Дресс-код праздника - оттенки пыльной розы, сливочного масла, а также светло-голубые и нежно-бежевые цвета.</p>
         <div class="swatches" aria-label="Палитра дресс-кода">
           <span class="swatch" style="background:#c8d2e8"></span>
           <span class="swatch" style="background:#e6d7c2"></span>
           <span class="swatch" style="background:#f7e4c7"></span>
           <span class="swatch" style="background:#dfc2c2"></span>
-          <span class="swatch" style="background:#b9aa9c"></span>
         </div>
         <div class="dress-gallery" aria-label="Примеры образов для дресс-кода">
-          <figure class="dress-look">
+          <figure class="dress-look" role="button" tabindex="0" aria-label="Открыть первый пример дресс-кода">
             <img src="images/dress1.PNG" alt="Пример образа в природной палитре">
           </figure>
-          <figure class="dress-look">
+          <figure class="dress-look" role="button" tabindex="0" aria-label="Открыть второй пример дресс-кода">
             <img src="images/dress2.PNG" alt="Пример образа в мягких светлых оттенках">
           </figure>
         </div>
@@ -191,8 +190,8 @@
       <div class="rsvp" id="rsvp">
         <p class="section-kicker">interactive</p>
         <h2>Расскажите немного о себе</h2>
-        <p class="copy">Напишите два-три факта о себе. Позже вы узнаете зачем) Например: я работаю в сфере IT, окончил Высшую школу экономики и люблю серфинг.</p>
-        <a class="button" href="mailto:hello@example.com?subject=Максим%20и%20Вероника%20-%20факты%20о%20себе&body=Здравствуйте!%0A%0AНесколько%20фактов%20обо%20мне:%0A1.%20%0A2.%20%0A3.%20">Написать факты</a>
+        <p class="copy">Напишите два-три факта о себе, а также пройдите короткий опрос. Позже вы узнаете зачем! Например: я работаю в сфере IT, окончил Высшую школу экономики и люблю серфинг.</p>
+        <a class="button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdDju829ZEE3GSdNp9v_tP63CgKLARPCgTCPmEFoFY1ZA8oXg/viewform?usp=dialog">Написать факты</a>
       </div>
     </section>
   </main>
@@ -200,6 +199,10 @@
   <footer>
     Максим & Вероника · 22 июня 2026
   </footer>
+  <div class="image-modal" id="dress-modal" aria-hidden="true">
+    <button class="modal-close" type="button" aria-label="Закрыть">×</button>
+    <img class="modal-image" src="" alt="">
+  </div>
   <script>
     const guests = {
       a7k2m: {
@@ -284,6 +287,62 @@
     }
 
     setGuestNames();
+
+    const dressModal = document.getElementById("dress-modal");
+    const modalImage = dressModal && dressModal.querySelector(".modal-image");
+    const modalClose = dressModal && dressModal.querySelector(".modal-close");
+    const dressLooks = document.querySelectorAll(".dress-look");
+
+    function openDressModal(image) {
+      if (!dressModal || !modalImage || !image) {
+        return;
+      }
+
+      modalImage.src = image.src;
+      modalImage.alt = image.alt;
+      dressModal.classList.add("is-open");
+      dressModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      modalClose && modalClose.focus();
+    }
+
+    function closeDressModal() {
+      if (!dressModal || !modalImage) {
+        return;
+      }
+
+      dressModal.classList.remove("is-open");
+      dressModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      modalImage.src = "";
+      modalImage.alt = "";
+    }
+
+    dressLooks.forEach((look) => {
+      const image = look.querySelector("img");
+
+      look.addEventListener("click", () => openDressModal(image));
+      look.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openDressModal(image);
+        }
+      });
+    });
+
+    modalClose && modalClose.addEventListener("click", closeDressModal);
+
+    dressModal && dressModal.addEventListener("click", (event) => {
+      if (event.target === dressModal) {
+        closeDressModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && dressModal && dressModal.classList.contains("is-open")) {
+        closeDressModal();
+      }
+    });
   </script>
 </body>
 </html>
