@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Перенаправление | Максим & Вероника</title>
+</head>
+<body>
+  <script>
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    const guestCode = pathParts[pathParts.length - 1] || "";
+    const basePath = "/" + pathParts.slice(0, -1).join("/") + "/";
+    const targetPath = basePath.replace("//", "/");
+    const targetUrl = guestCode
+      ? `${targetPath}?guest=${encodeURIComponent(guestCode)}`
+      : targetPath;
+
+    window.location.replace(targetUrl);
+  </script>
+</body>
+</html>
