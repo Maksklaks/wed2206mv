@@ -23,7 +23,7 @@
       color: var(--ink);
       background:
         linear-gradient(rgba(225, 230, 225, .74), rgba(225, 230, 225, .88)),
-        url("https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=80") center / cover fixed;
+        url("images/photo-1523438885200-e635ba2c371e.jpg") center / cover fixed;
       font-family: Arial, Helvetica, sans-serif;
       overflow-x: hidden;
     }
